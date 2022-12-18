@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Routing\RouteCompiler;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +83,11 @@ Route::put('/customer-update/{id}',[AdminController::class,'updates'])->name('up
 
 
 
+Route::get('/regForm',[AuthController::class,'regForm'])->name('regForm');
+ Route::post('/regFormSubmit',[AuthController::class,'regFormSubmit'])->name('regFormSubmit');
+
+Route::get('/login',[AuthController::class,'login'])->name('login');
+Route::post('/loginsubmit',[AuthController::class,'loginsubmit'])->name('loginsubmit');
 
 
 
