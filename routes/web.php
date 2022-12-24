@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Routing\RouteCompiler;
 use App\Http\Controllers\AuthController;
+use Illuminate\Routing\Controllers\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,17 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
+
+Route::get('/regForm',[AuthController::class,'regForm'])->name('regForm');
+ Route::post('/regFormSubmit',[AuthController::class,'regFormSubmit'])->name('regFormSubmit');
+
+Route::get('/login',[AuthController::class,'login'])->name('login');
+Route::post('/loginsubmit',[AuthController::class,'loginsubmit'])->name('loginsubmit');
+
+Route::group(['middleware'=>'Customermiddleware'],function(){
+
+
+Route::get('/', function () {  
     return view('welcome');
 });
 Route::get('/admin',[AdminController::class,'dashboard']);
@@ -83,12 +94,9 @@ Route::put('/customer-update/{id}',[AdminController::class,'updates'])->name('up
 
 
 
-Route::get('/regForm',[AuthController::class,'regForm'])->name('regForm');
- Route::post('/regFormSubmit',[AuthController::class,'regFormSubmit'])->name('regFormSubmit');
 
-Route::get('/login',[AuthController::class,'login'])->name('login');
-Route::post('/loginsubmit',[AuthController::class,'loginsubmit'])->name('loginsubmit');
 
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 
 
@@ -100,3 +108,6 @@ Route::get('payment',[AdminController::class,'payment'])->name('payment');
 Route::get('payment-form',[AdminController::class,'payment_form'])->name('payment-form');
 Route::post('payment-formcreate',[AdminController::class,'payment_formcreate'])->name('payment-formcreate');
 //end payment page
+
+
+});

@@ -24,7 +24,7 @@ class AuthController extends Controller
         return back();
     }
     public function loginsubmit(Request $request){
-       $credentials=$request->expect('_token');
+       $credentials=$request->except('_token');
        $authentication=auth()->attempt($credentials);
        if($authentication){
         return to_route('makeup');
@@ -33,5 +33,9 @@ class AuthController extends Controller
         return to_route('regForm');
        }
     }
-    
+     
+    public function logout(){
+        auth()->logout();
+        return to_route('login');
+    }
 }
