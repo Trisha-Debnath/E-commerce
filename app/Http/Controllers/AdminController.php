@@ -129,7 +129,7 @@ public function regester_formcreate(Request $request){
 
 //start customer sidebar page
 public function customer(){
-   $customerlist=Customer::all();
+   $customerlist=Customer::paginate(3);
    return view('backend.customer.customer',compact('customerlist'));
 }
 //end customer sidebar page
